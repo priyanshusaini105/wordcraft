@@ -5,6 +5,7 @@ import { auth } from '@/config/firebase';
 import Image from 'next/image';
 import { CreateBlogPostForm } from '@/components';
 import { ICreatePostFormData } from '@/types';
+import { uid } from 'uid';
 
 
 
@@ -21,9 +22,14 @@ const Write = () => {
     return unsubscribe;
   }, [])
 
-  const getFormData=(data:ICreatePostFormData)=>{
-    console.log(data)
-  }
+  const getFormData = (data: ICreatePostFormData) => {
+    console.log(data);
+    const id = uid();
+    const dataString = JSON.stringify({...data,id});
+    const encodedData = encodeURIComponent(dataString);
+    router.push(`/write/${encodedData}`);
+  };
+  
 
 
   return (

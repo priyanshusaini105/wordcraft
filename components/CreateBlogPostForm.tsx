@@ -14,6 +14,7 @@ const CreateBlogPostForm = ({ getFormData }: { getFormData: (data: ICreatePostFo
         if (!tags.includes(newTag)) {
           setTags((prevTags) => [...prevTags, newTag]);
         }
+        event.preventDefault(); // prevent form submission on "Enter" key press
         setTagInput("");
       }
     };
@@ -50,7 +51,7 @@ const CreateBlogPostForm = ({ getFormData }: { getFormData: (data: ICreatePostFo
                     </label>
                     <input
                         className="shadow-inner appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="image" type="url" placeholder="Enter the URL of your post image" value={image} onChange={(e) => setImage(e.target.value)} required />
+                        id="image" type="url" placeholder="Enter the URL of your post image" value={image} onChange={(e) => setImage(e.target.value)} />
                 </div>
                 <div className="mb-4">
                     <label className="block text-gray-700 font-bold mb-2" htmlFor="tags">
