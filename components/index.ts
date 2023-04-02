@@ -1,3 +1,4 @@
+import Footer from './Footer';
 import Hero from './Hero';
 import Navbar from './Navbar';
-export {Navbar,Hero}
+export {Navbar,Hero,Footer}

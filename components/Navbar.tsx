@@ -29,7 +29,7 @@ const navItems: INavItems[] = [{
 const Navbar = () => {
 
     return (
-        <nav className='lg:px-10 px-1 bg-white fixed top-0 left-0 right-0 z-50 flex justify-between items-center gap-2 bg-opacity-20 backdrop-blur shadow-md'>
+        <nav className='lg:px-10 px-1 bg-accent fixed top-0 left-0 right-0 z-50 flex justify-between items-center gap-2 bg-opacity-20 backdrop-blur shadow-md'>
             <Link href="/">
                 <Image src="/img/logo-lg.png" alt="logo" width="200" height="35" />
             </Link>
