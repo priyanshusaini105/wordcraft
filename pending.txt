@@ -1,0 +1,5 @@
+min read
+comments
+author icon click
+topic click
+custom error page with home button
