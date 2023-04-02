@@ -4,8 +4,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'downloader.la',
+        hostname: '*',
         port: '',
         pathname: '/**',
       },

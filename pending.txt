@@ -4,7 +4,6 @@ author icon click
 topic click
 custom error page with home button
 confirm email
-pending
 chips suggestion
 #issue 
 google signInWithPopup not working in mobile

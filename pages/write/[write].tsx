@@ -3,12 +3,28 @@ import { Editor } from '@tinymce/tinymce-react';
 import { Editor as TinyMCEEditor } from 'tinymce';
 import Head from 'next/head';
 import { useRouter } from 'next/router'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image';
+import { auth } from '@/config/firebase';
+import { onAuthStateChanged } from 'firebase/auth';
 interface IPostInitialData extends ICreatePostFormData {
   id: string;
 }
 const Write = () => {
+  const [id, setId] = useState<string>('');
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, function (user) {
+      if (!user)
+        router.push('/login')
+      else
+        setId(user.uid)
+    });
+    return unsubscribe;
+  }, [])
+
+  
+
   const router = useRouter();
   const data = JSON.parse(typeof router.query.write === 'undefined' ? '{}' : router.query.write as string) as IPostInitialData;
 
@@ -19,7 +35,8 @@ const Write = () => {
     }
   };
 
-  log()
+
+
   return (
     <div>
       <Head>
@@ -39,7 +56,7 @@ const Write = () => {
           className='rounded-md m-5 mx-auto'
         />}
         <Editor
-          apiKey='pxbrcm6e7o6npvos2z16chat7dfuknqf8cfv0191uuyop6cw'
+          apiKey={process.env.NEXT_PUBLIC_TINYMCE_API_KEY}
           onInit={(evt, editor) => editorRef.current = editor}
           init={{
             branding: false,

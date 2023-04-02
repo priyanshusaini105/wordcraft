@@ -54,9 +54,18 @@ const Navbar = () => {
                     </li>
                 ))}
                 {user ?
-                    <li className='m-2 relative'>
-                        <Link href="/profile" className='text-white font-bold text-sm uppercase no-underline block p-2 bg-primary rounded-full relative hover:bg-transparent duration-300 '>
-                            <FaUserAlt size={26} className='hover:text-primary ease-in duration-150' />
+                    <li className='m-3 relative'>
+                        <Link href="/profile" className='' title={user.displayName??"Profile"}>
+                            {user.photoURL?
+                                <Image
+                                    src={user.photoURL}
+                                    alt="Unable to load Image"
+                                    width={30}
+                                    height={30}
+                                    className='rounded-full'
+                                />:
+                                <span className='text-white font-semibold text-sm uppercase no-underline block w-8 h-8 bg-primary rounded-full relative flex justify-center items-center'>{user.displayName?user.displayName[0]:(user.email as string)[0]}</span>
+                            }
                         </Link>
                     </li>
                     : <>
