@@ -1,20 +1,53 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { FcGoogle } from "react-icons/fc";
 import { SlUserFollow } from "react-icons/sl";
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { ISignInFormData } from '@/types';
 import Head from 'next/head';
+import { LogInWithGoogle } from '@/components';
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '@/config/firebase';
+import { useRouter } from 'next/router';
 
 const PASS_REGEX = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
 const login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<ISignInFormData>();
-  const onSubmit: SubmitHandler<ISignInFormData> = data => console.log(data);
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<ISignInFormData>();
+
+  const router=useRouter();
+
+   // redirect if user already exist
+   useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, function (user) {
+        if (user) {
+            router.push('/')
+            localStorage.setItem("authState","true");
+        }else{
+            localStorage.setItem("authState","false");
+        }
+    });
+    return unsubscribe;
+}, [])
+
+  // sign in 
+  const onSubmit: SubmitHandler<ISignInFormData> = data => {
+    const { email, password } = data;
+    reset(data);
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user= userCredential.user;
+        router.push('/');
+      })
+      .catch((err)=>{
+        console.log(err);
+        window.alert(err)
+      })
+  };
 
 
   return (
@@ -69,12 +102,12 @@ const login = () => {
                   </div>
                 </div>
                 {errors.password && <span className='text-xs text-error -top-2 '>*{errors.password?.message}</span>}
-                  <div className='flex w-full mt-2 justify-end'>
-                    <a className="text-xs font-nunito font-semibold text-primary hover:text-primary
+                <div className='flex w-full mt-2 justify-end'>
+                  <a className="text-xs font-nunito font-semibold text-primary hover:text-primary
                               cursor-pointer">
-                      Forgot Password?
-                    </a>
-                  </div>
+                    Forgot Password?
+                  </a>
+                </div>
               </div>
 
               <div className="mt-10">
@@ -85,10 +118,7 @@ const login = () => {
                   Log In
                 </button>
               </div>
-              <Link href="/signup" className='flex justify-center gap-4 items-center font-nunito rounded-full my-4 p-3 shadow-lg bg-white text-lg border border-gray-100'>
-                <FcGoogle size={25} />
-                Login With Google
-              </Link>
+              <LogInWithGoogle />
             </form>
             <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
               Don't have an account ? <Link href="/signup" className="cursor-pointer text-primary hover:text-primary font-nunito">Sign up</Link>

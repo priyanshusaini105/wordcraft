@@ -3,38 +3,37 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { FcGoogle } from "react-icons/fc";
 import { SlUserFollow } from "react-icons/sl";
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { ISignUpFormData } from '@/types';
 import Head from 'next/head';
-import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, updateProfile } from "firebase/auth";
 import { auth } from '@/config/firebase';
 import { useRouter } from 'next/router';
+import { LogInWithGoogle } from '@/components';
 
-const provider = new GoogleAuthProvider();
 
 
 const PASS_REGEX = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
 
-// for generating the user name for user
-function createUniqueUsername(name: string, email: string) {
-    // convert email to lowercase
-    email = email.toLowerCase();
+// // for generating the user name for user
+// function createUniqueUsername(name: string, email: string) {
+//     // convert email to lowercase
+//     email = email.toLowerCase();
 
-    // remove everything after the '@' symbol in the email
-    const emailPrefix = email.split('@')[0];
+//     // remove everything after the '@' symbol in the email
+//     const emailPrefix = email.split('@')[0];
 
-    // remove any non-alphanumeric characters from the name
-    const nameWithoutSpecialChars = name.replace(/[^a-zA-Z0-9]/g, '');
+//     // remove any non-alphanumeric characters from the name
+//     const nameWithoutSpecialChars = name.replace(/[^a-zA-Z0-9]/g, '');
 
-    // concatenate the email prefix and name without special characters
-    const username = emailPrefix + nameWithoutSpecialChars;
+//     // concatenate the email prefix and name without special characters
+//     const username = emailPrefix + nameWithoutSpecialChars;
 
-    // return the username
-    return username;
-}
+//     // return the username
+//     return username;
+// }
 
 
 
@@ -86,30 +85,6 @@ const signup = () => {
             });
     };
 
-    // for google singn in
-    const signInWithGoogle = () => {
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                if (credential) {
-                    const token = credential.accessToken;
-                    // The signed-in user info.
-                    const user = result.user;
-                    router.push('/')
-                }
-            }).catch((error) => {
-                // Handle Errors here.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                // The email of the user's account used.
-                const email = error.customData.email;
-                // The AuthCredential type that was used.
-                const credential = GoogleAuthProvider.credentialFromError(error);
-                window.alert("Error code: " + errorCode + "\n " + errorMessage)
-                throw new Error("Error while creating account" + errorMessage);
-            });
-    }
 
     return (
         <section className="lg:flex mb-24">
@@ -216,11 +191,9 @@ const signup = () => {
                                     <SlUserFollow size={25} color='white' />
                                     Sign Up
                                 </button>
+                                <LogInWithGoogle/>
                             </div>
-                            <button onClick={() => signInWithGoogle()} className='flex justify-center w-full gap-4 items-center font-nunito rounded-full my-4 p-3 shadow-lg bg-white text-lg border border-gray-100'>
-                                <FcGoogle size={25} />
-                                SignUp With Google
-                            </button>
+                           
                         </form>
                         <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
                             Already have an account ? <Link href="/login" className="cursor-pointer text-primary hover:text-primary font-nunito">Sign In</Link>
