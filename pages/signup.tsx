@@ -81,7 +81,7 @@ const signup = () => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 window.alert("Error code: " + errorCode + "\n " + errorMessage)
-                throw new Error("Error while creating account" + errorMessage);
+                console.error("Error while creating account" + errorMessage);
             });
     };
 

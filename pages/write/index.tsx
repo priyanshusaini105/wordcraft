@@ -1,9 +1,12 @@
-import React, { useEffect, useRef } from 'react'
-import { Editor } from '@tinymce/tinymce-react';
-import { Editor as TinyMCEEditor } from 'tinymce';
+import React, { useEffect} from 'react'
 import { useRouter } from 'next/router';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/config/firebase';
+import Image from 'next/image';
+import { CreateBlogPostForm } from '@/components';
+import { ICreatePostFormData } from '@/types';
+
+
 
 const Write = () => {
 
@@ -18,38 +21,16 @@ const Write = () => {
     return unsubscribe;
   }, [])
 
-  const editorRef = useRef<TinyMCEEditor | null>(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
-
+  const getFormData=(data:ICreatePostFormData)=>{
+    console.log(data)
+  }
 
 
   return (
-    <>
-      <Editor
-        apiKey='pxbrcm6e7o6npvos2z16chat7dfuknqf8cfv0191uuyop6cw'
-        onInit={(evt, editor) => editorRef.current = editor}
-        initialValue="<p>This is the initial content of the editor.</p>"
-        init={{
-          height: 500,
-          menubar: 'code',
-          plugins: [
-            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-            'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
-          ],
-          toolbar: 'undo redo | blocks | ' +
-            'bold italic forecolor | alignleft aligncenter ' +
-            'alignright alignjustify | bullist numlist outdent indent | ' +
-            'removeformat | help' + ' code',
-          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-        }}
-      />
-      <button onClick={log}>Log editor content</button>
-    </>
+    <section className='bg-accent flex md:justify-around flex-col-reverse md:flex-row gap-3 p-8'>
+      <CreateBlogPostForm getFormData={getFormData}/>
+      <Image src="/img/createPost.svg" alt='Create Post' width={600} height={400} />
+    </section>
   )
 }
 

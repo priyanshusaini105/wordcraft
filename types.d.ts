@@ -8,3 +8,8 @@ export interface ISignInFormData {
     email: string;
     password: string;
   }
+export interface  ICreatePostFormData {
+  title: string;
+  image: string;
+  tags: string[];
+}
