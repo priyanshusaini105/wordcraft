@@ -1,8 +1,9 @@
 import React, { useRef } from 'react'
 import { Editor } from '@tinymce/tinymce-react';
+import { Editor as TinyMCEEditor } from 'tinymce';
 
 const Write = () => {
-    const editorRef = useRef(null);
+  const editorRef = useRef<TinyMCEEditor | null>(null);
     const log = () => {
       if (editorRef.current) {
         console.log(editorRef.current.getContent());
