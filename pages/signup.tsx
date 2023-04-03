@@ -62,7 +62,12 @@ const signup = () => {
                 displayName: name
             });
 
-            await set(ref(database, `users/${user.uid}/profile`), data);
+            await set(ref(database, `users/${user.uid}/profile`), {
+                ...data,
+                role:"author",
+                userId:user.uid,
+                photo:""
+            });
 
             alert('Account created Successfully');
             router.push('/');

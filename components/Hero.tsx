@@ -1,18 +1,11 @@
-import { auth } from '@/config/firebase'
-import { User, onAuthStateChanged } from 'firebase/auth'
+import { ProfileContext } from '@/context'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useContext} from 'react'
 
 const Hero = () => {
 
-  const [user, setUser] = useState<User|null>(null)
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, function (user) {
-        if (user) setUser(user)
-    });
-    return unsubscribe;
-}, [])
+ const profileData=useContext(ProfileContext)
 
   return (
     <section className="bg-accent flex gap-2 flex-col-reverse lg:flex-row lg:py-8">
@@ -22,7 +15,7 @@ const Hero = () => {
           <span className='text-2xl font-nunito'> - where writers and readers come together </span>
         </div>
         <span className='m-2 font-poppins p-2'>&nbsp; At Wordcraft, we believe that great writing is all about connection. That's why we've built a platform that brings writers and readers together, making it easy to share your work and engage with your audience. Join our community today and start making meaningful connections.</span>
-        <Link href={user?'/write':'login'} className='text-white bg-primary rounded-xl m-2 p-2 w-32 mr-5 items-center justify-center flex text-center'>Get Started</Link>
+        <Link href={profileData.login?'/write':'login'} className='text-white bg-primary rounded-xl m-2 p-2 w-32 mr-5 items-center justify-center flex text-center'>Get Started</Link>
       </section>
       <section className='py-10'>
         <Image alt='WordCraft' src='/img/hero.svg' width={700} height={600} className='h-[20rem] w-70' />

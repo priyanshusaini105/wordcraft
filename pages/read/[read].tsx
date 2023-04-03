@@ -6,6 +6,7 @@ import Error from 'next/error'
 import Image from 'next/image'
 import { FaUserCircle, FaRegCalendarAlt } from "react-icons/fa";
 import Link from 'next/link'
+
 let blogPostTags = [
   "JavaScript",
   "Web Development",

@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import React, { useContext, useEffect} from 'react'
 import { useRouter } from 'next/router';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@/config/firebase';
@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { CreateBlogPostForm } from '@/components';
 import { ICreatePostFormData } from '@/types';
 import { uid } from 'uid';
+import { ProfileContext } from '@/context';
 
 
 
@@ -13,13 +14,12 @@ const Write = () => {
 
   const router = useRouter();
 
+  const {login}=useContext(ProfileContext);
+
   // redirect if user already exist
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, function (user) {
-      if (!user)
-        router.push('/login')
-    });
-    return unsubscribe;
+    if(!login)
+      router.push('/login')
   }, [])
 
   const getFormData = (data: ICreatePostFormData) => {

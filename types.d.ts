@@ -13,3 +13,11 @@ export interface  ICreatePostFormData {
   image: string;
   tags: string[];
 }
+export interface IProfileData{
+  name:string;
+  email:string;
+  role:"admin"|"author"|"reader";
+  photo:string;
+  userId:string;
+  login:boolean;
+}

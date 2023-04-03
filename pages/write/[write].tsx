@@ -3,57 +3,60 @@ import { Editor } from '@tinymce/tinymce-react';
 import { Editor as TinyMCEEditor } from 'tinymce';
 import Head from 'next/head';
 import { useRouter } from 'next/router'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import Image from 'next/image';
-import { auth, database } from '@/config/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
-import { ref,  set } from 'firebase/database';
+import { database } from '@/config/firebase';
+import { ref, set } from 'firebase/database';
+import { ProfileContext } from '@/context';
 
 interface IPostInitialData extends ICreatePostFormData {
   id: string;
 }
 const Write = () => {
-  const [userId, setUserId] = useState<string>('');
+  const router = useRouter();
+  const data = JSON.parse(typeof router.query.write === 'undefined' ? '{}' : router.query.write as string) as IPostInitialData;
+
+  const profileData = useContext(ProfileContext);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, function (user) {
-      if (!user)
-        router.push('/login')
-      else
-        setUserId(user.uid)
-    });
-    return unsubscribe;
+    if (!profileData.login)
+      router.push('/login')
   }, [])
 
 
 
-  const router = useRouter();
-  const data = JSON.parse(typeof router.query.write === 'undefined' ? '{}' : router.query.write as string) as IPostInitialData;
-
   const editorRef = useRef<TinyMCEEditor | null>(null);
   const publish = () => {
     if (editorRef.current) {
-      set(ref(database, 'users/' + userId + '/publish'), {
+      set(ref(database, `users/${profileData.userId}/publish/${data.id}`), {
         ...data,
         content: editorRef.current.getContent()
       }).then(() => {
+        editorRef.current?.setContent('');
+        editorRef.current?.setDirty(false);
+        editorRef.current?.save();
         alert('Published Successfully');
-        router.push('/' + userId + '/publish');
+        router.push('/' + profileData.userId + '/publish');
+      }).catch(error => {
+        console.error(error);
+        alert("Error while Publishing")
       })
-      ;
     };
   }
   const draft = () => {
     if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-      set(ref(database, 'users/' + userId + '/draft'), {
+      set(ref(database, `users/${profileData.userId}/draft/${data.id}`), {
         ...data,
         content: editorRef.current.getContent()
       }).then(() => {
+        editorRef.current?.setContent('');
+        editorRef.current?.setDirty(false);
+        editorRef.current?.save();
         alert('Drafted Successfully');
-        router.push('/' + userId + '/draft');
+        router.push('/' + profileData.userId + '/draft');
       }).catch((err) => {
         console.error(err);
+        alert("Error while drafting")
       });
     };
   }
