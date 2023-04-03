@@ -18,10 +18,6 @@ const Write = () => {
 
   const profileData = useContext(ProfileContext);
 
-  useEffect(() => {
-    if (!profileData.login)
-      router.push('/login')
-  }, [])
 
 
 

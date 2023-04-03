@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect, useReducer, useState } from 'react'
-import { FcGoogle } from "react-icons/fc";
+import React, {  useState } from 'react'
 import { SlUserFollow } from "react-icons/sl";
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { useForm, SubmitHandler } from 'react-hook-form';
@@ -28,19 +27,6 @@ const login = () => {
   const router = useRouter();
 
 
-
-  // redirect if user already exist
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, function (user) {
-      if (user) {
-        router.push('/')
-        localStorage.setItem("authState", "true");
-      } else {
-        localStorage.setItem("authState", "false");
-      }
-    });
-    return unsubscribe;
-  }, [])
 
 
 

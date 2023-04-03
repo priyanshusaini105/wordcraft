@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { useContext} from 'react'
+import React, { useContext } from 'react'
 import Image from 'next/image';
 import { TfiBook, TfiPencilAlt } from "react-icons/tfi";
 import { IconType } from 'react-icons/lib';
@@ -27,7 +27,7 @@ const navItems: INavItems[] = [{
 ]
 
 const Navbar = () => {
-    const profileData=useContext(ProfileContext)
+    const { login, photo, email, name, userId } = useContext(ProfileContext);
 
     return (
         <nav className='lg:px-10 px-1 bg-accent fixed top-0 left-0 right-0 z-50 flex justify-between items-center gap-2 bg-opacity-20 backdrop-blur shadow-md'>
@@ -43,18 +43,18 @@ const Navbar = () => {
                         </Link>
                     </li>
                 ))}
-                {profileData.login ?
+                {login ?
                     <li className='m-3 relative'>
-                        <Link href="/profile" className='' title={profileData.name??"Profile"}>
-                            {profileData.photo?
+                        <Link href={`/user/${userId}`} className='' title={name ?? "Profile"}>
+                            {photo ?
                                 <Image
-                                    src={profileData.photo}
+                                    src={photo}
                                     alt="Unable to load Image"
                                     width={30}
                                     height={30}
                                     className='rounded-full'
-                                />:
-                                <span className='text-white font-semibold text-sm uppercase no-underline block w-8 h-8 bg-primary rounded-full relative flex justify-center items-center'>{profileData.name?profileData.name[0]:profileData.email[0]}</span>
+                                /> :
+                                <span className='text-white font-semibold text-sm uppercase no-underline w-8 h-8 bg-primary rounded-full relative flex justify-center items-center'>{name ? name[0] : email[0]}</span>
                             }
                         </Link>
                     </li>

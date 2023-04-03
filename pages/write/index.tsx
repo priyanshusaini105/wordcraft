@@ -14,14 +14,6 @@ const Write = () => {
 
   const router = useRouter();
 
-  const {login}=useContext(ProfileContext);
-
-  // redirect if user already exist
-  useEffect(() => {
-    if(!login)
-      router.push('/login')
-  }, [])
-
   const getFormData = (data: ICreatePostFormData) => {
     console.log(data);
     const id = uid();

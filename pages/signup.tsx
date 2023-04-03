@@ -1,13 +1,12 @@
-import { error } from 'console';
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React,{useState} from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { SlUserFollow } from "react-icons/sl";
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { ISignUpFormData } from '@/types';
 import Head from 'next/head';
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, database } from '@/config/firebase';
 import { useRouter } from 'next/router';
 import { LogInWithGoogle } from '@/components';
@@ -18,7 +17,7 @@ import { FirebaseError } from 'firebase/app';
 
 const PASS_REGEX = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-
+// checkinf if error is form firebase or not
 const isFirebaseError = (error: unknown): error is FirebaseError => {
     return (error as FirebaseError).code !== undefined;
 }
@@ -32,19 +31,6 @@ const signup = () => {
 
     const router = useRouter()
 
-
-    // redirect if user already exist
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, function (user) {
-            if (user) {
-                router.push('/')
-                localStorage.setItem("authState", "true");
-            } else {
-                localStorage.setItem("authState", "false");
-            }
-        });
-        return unsubscribe;
-    }, [])
 
 
 
