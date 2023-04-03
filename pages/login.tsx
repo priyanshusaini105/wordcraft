@@ -11,42 +11,59 @@ import { LogInWithGoogle } from '@/components';
 import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/config/firebase';
 import { useRouter } from 'next/router';
+import { FirebaseError } from 'firebase/app';
 
 const PASS_REGEX = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+const isFirebaseError = (error: unknown): error is FirebaseError => {
+  return (error as FirebaseError).code !== undefined;
+}
+
 
 const login = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ISignInFormData>();
 
-  const router=useRouter();
+  const router = useRouter();
 
-   // redirect if user already exist
-   useEffect(() => {
+
+
+  // redirect if user already exist
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, function (user) {
-        if (user) {
-            router.push('/')
-            localStorage.setItem("authState","true");
-        }else{
-            localStorage.setItem("authState","false");
-        }
+      if (user) {
+        router.push('/')
+        localStorage.setItem("authState", "true");
+      } else {
+        localStorage.setItem("authState", "false");
+      }
     });
     return unsubscribe;
-}, [])
+  }, [])
+
+
 
   // sign in 
-  const onSubmit: SubmitHandler<ISignInFormData> = data => {
+  const onSubmit: SubmitHandler<ISignInFormData> = async data => {
     const { email, password } = data;
     reset(data);
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user= userCredential.user;
-        router.push('/');
-      })
-      .catch((err)=>{
-        console.log(err);
-        window.alert(err)
-      })
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      router.push('/');
+    } catch (error) {
+      if (isFirebaseError(error)) {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        alert(`Error code: ${errorCode}\n ${errorMessage}`);
+        console.error(`Error while creating account ${errorMessage}`);
+      }
+      else
+        console.error(error)
+    } finally {
+      reset();
+    }
   };
 
 

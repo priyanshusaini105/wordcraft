@@ -8,32 +8,21 @@ import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { ISignUpFormData } from '@/types';
 import Head from 'next/head';
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithPopup, updateProfile } from "firebase/auth";
-import { auth } from '@/config/firebase';
+import { auth, database } from '@/config/firebase';
 import { useRouter } from 'next/router';
 import { LogInWithGoogle } from '@/components';
+import { ref, set } from 'firebase/database';
+import { FirebaseError } from 'firebase/app';
 
 
 
 const PASS_REGEX = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
 
-// // for generating the user name for user
-// function createUniqueUsername(name: string, email: string) {
-//     // convert email to lowercase
-//     email = email.toLowerCase();
+const isFirebaseError = (error: unknown): error is FirebaseError => {
+    return (error as FirebaseError).code !== undefined;
+}
 
-//     // remove everything after the '@' symbol in the email
-//     const emailPrefix = email.split('@')[0];
-
-//     // remove any non-alphanumeric characters from the name
-//     const nameWithoutSpecialChars = name.replace(/[^a-zA-Z0-9]/g, '');
-
-//     // concatenate the email prefix and name without special characters
-//     const username = emailPrefix + nameWithoutSpecialChars;
-
-//     // return the username
-//     return username;
-// }
 
 
 
@@ -49,9 +38,9 @@ const signup = () => {
         const unsubscribe = onAuthStateChanged(auth, function (user) {
             if (user) {
                 router.push('/')
-                localStorage.setItem("authState","true");
-            }else{
-                localStorage.setItem("authState","false");
+                localStorage.setItem("authState", "true");
+            } else {
+                localStorage.setItem("authState", "false");
             }
         });
         return unsubscribe;
@@ -60,29 +49,36 @@ const signup = () => {
 
 
     const { register, handleSubmit, watch, reset, formState: { errors } } = useForm<ISignUpFormData>();
-    const onSubmit: SubmitHandler<ISignUpFormData> = data => {
-        const { email, name, password } = data;
 
-        reset(data);
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                updateProfile(user, {
-                    displayName: name
-                }).then(() => {
-                    window.alert("Profile Created Successfully")
-                    router.push('/')
-                }).catch((error) => {
-                    console.error(error);
-                });
-            })
-            .catch((error) => {
+    // submiting form data and creating account
+    const onSubmit: SubmitHandler<ISignUpFormData> = async data => {
+        const { email, name, password } = data;
+        reset();
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            await updateProfile(user, {
+                displayName: name
+            });
+
+            await set(ref(database, `users/${user.uid}/profile`), data);
+
+            alert('Account created Successfully');
+            router.push('/');
+        } catch (error) {
+            if (isFirebaseError(error)) {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                window.alert("Error code: " + errorCode + "\n " + errorMessage)
-                console.error("Error while creating account" + errorMessage);
-            });
+                alert(`Error code: ${errorCode}\n ${errorMessage}`);
+                console.error(`Error while creating account ${errorMessage}`);
+            }
+            else
+                console.error(error)
+        }
+        finally {
+            reset();
+        }
     };
 
 
@@ -191,9 +187,9 @@ const signup = () => {
                                     <SlUserFollow size={25} color='white' />
                                     Sign Up
                                 </button>
-                                <LogInWithGoogle/>
+                                <LogInWithGoogle />
                             </div>
-                           
+
                         </form>
                         <div className="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
                             Already have an account ? <Link href="/login" className="cursor-pointer text-primary hover:text-primary font-nunito">Sign In</Link>

@@ -5,35 +5,58 @@ import Head from 'next/head';
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image';
-import { auth } from '@/config/firebase';
+import { auth, database } from '@/config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
+import { ref,  set } from 'firebase/database';
+
 interface IPostInitialData extends ICreatePostFormData {
   id: string;
 }
 const Write = () => {
-  const [id, setId] = useState<string>('');
+  const [userId, setUserId] = useState<string>('');
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, function (user) {
       if (!user)
         router.push('/login')
       else
-        setId(user.uid)
+        setUserId(user.uid)
     });
     return unsubscribe;
   }, [])
 
-  
+
 
   const router = useRouter();
   const data = JSON.parse(typeof router.query.write === 'undefined' ? '{}' : router.query.write as string) as IPostInitialData;
 
   const editorRef = useRef<TinyMCEEditor | null>(null);
-  const log = () => {
+  const publish = () => {
+    if (editorRef.current) {
+      set(ref(database, 'users/' + userId + '/publish'), {
+        ...data,
+        content: editorRef.current.getContent()
+      }).then(() => {
+        alert('Published Successfully');
+        router.push('/' + userId + '/publish');
+      })
+      ;
+    };
+  }
+  const draft = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getContent());
-    }
-  };
+      set(ref(database, 'users/' + userId + '/draft'), {
+        ...data,
+        content: editorRef.current.getContent()
+      }).then(() => {
+        alert('Drafted Successfully');
+        router.push('/' + userId + '/draft');
+      }).catch((err) => {
+        console.error(err);
+      });
+    };
+  }
 
 
 
@@ -44,8 +67,8 @@ const Write = () => {
       </Head>
       <section className='m-1 my-10 md:mx-16'>
         <div className='flex justify-end'>
-          <button className='bg-accent text-primary  px-3 py-1 rounded-lg duration-200 hover:bg-primary hover:text-accent ease-in m-3 font-nunito'>Draft</button>
-          <button className='bg-primary text-accent  px-3 py-1 rounded-lg duration-200 hover:bg-accent hover:text-primary ease-in m-3 font-nunito'>Publish</button>
+          <button className='bg-accent text-primary  px-3 py-1 rounded-lg duration-200 hover:bg-primary hover:text-accent ease-in m-3 font-nunito' onClick={() => draft()}>Draft</button>
+          <button className='bg-primary text-accent  px-3 py-1 rounded-lg duration-200 hover:bg-accent hover:text-primary ease-in m-3 font-nunito' onClick={() => publish()}>Publish</button>
         </div>
         <h1 className='text-3xl my-3 text-center md:text-5xl font-nunito'>{data.title}</h1>
         {data.image !== "" && <Image
