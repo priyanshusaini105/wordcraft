@@ -78,15 +78,15 @@ const setCommentToDB= async (commentId:string,comment:Comment)=> {
           <button
             type="submit"
             disabled={!newComment.trim()}
-            className="bg-primary text-white px-6 py-3 rounded-lg hover:bg-green-800 transition-colors duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center"
+            className="bg-primary text-white px-6 py-3 rounded-full hover:bg-green-800 transition-colors duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center"
           >
             <IoMdSend className="mr-2" size={23}/>
-            <span className="text-lg font-nunito">Submit</span>
+            <span className="text-lg font-nunito ">Submit</span>
           </button>
         </form>
       ) : (
         <p className="mt-8 text-lg font-medium">
-          Please <Link href="/login" className="text-indigo-500 hover:underline">log in</Link> to leave a comment. <br /> We appreciate your thoughts!
+          Please <Link href="/login" className="text-primary hover:underline">log in</Link> to leave a comment. <br /> We appreciate your thoughts!
         </p>
       )}
     </div>

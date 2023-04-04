@@ -1,15 +1,13 @@
-import React, { useState} from 'react'
-import { useRouter } from 'next/router'
+import React from 'react'
 import Head from 'next/head'
 import Error from 'next/error'
 import Image from 'next/image'
 import { FaUserCircle, FaRegCalendarAlt } from "react-icons/fa";
-import Link from 'next/link'
-import { equalTo, get, onValue, orderByChild, query, ref } from 'firebase/database'
+import { child, get, ref } from 'firebase/database'
 import { database } from '@/config/firebase'
-import { IPost, IPostsData } from '@/types'
-import {Sidebar} from '@/components'
+import { Comment, ICommentsData, IPost, IPostQuery } from '@/types'
 import { GetServerSideProps } from 'next'
+import { CommentSection, Sidebar } from '@/components'
 
 let blogPostTags = [
     "JavaScript",
@@ -34,44 +32,17 @@ let blogPostTags = [
     "Machine Learning"
 ];
 
-const Posts = (props) => {
-    console.log("Props",props)
-    const router = useRouter()
-    console.log("browswr",router.query)
 
+interface IPostProps{
+    post: IPost;
+     exist: boolean;
+      postId: string;
+      comments:Comment[] 
+}
 
-    const { postId, userId } = router.query;
+const Posts: React.FC<IPostProps> = ({ post, exist, postId,comments }) => {
 
-    const [post, setPost] = useState<IPost | null>(null)
-    const [posts, setPosts] = useState<IPostsData | null>(null)
-
-
-        onValue(ref(database, `users/${userId}/draft/${postId}`), (snapshot) => {
-            if (snapshot.exists()) {
-                const data = snapshot.val() as IPost;
-                console.log(data)
-                setPost(data);
-            }else{
-                console.log("post no found")
-            }
-        }, {
-            onlyOnce: true
-        })
-        onValue(ref(database, `users/${userId}/draft/`), (snapshot) => {
-            if (snapshot.exists()) {
-                const data = snapshot.val() as IPostsData;
-                console.log(data)
-                setPosts(data);
-            }else{
-                console.log("post no found")
-            }
-        }, {
-            onlyOnce: true
-        })
-
-    
-    // console.log({postId,userId})
-    if (!post)
+    if (!exist)
         return <Error statusCode={404} title='Post Not Found' withDarkMode={false} />
 
     return (
@@ -100,8 +71,11 @@ const Posts = (props) => {
                     <Image src={post.image} width={650} height={500} alt="Unable to load Image" className='m-6' />
                 </div>
                 <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                <section>
+                    <CommentSection postId={postId} comments={comments} />
+                </section>
             </section>
-            <Sidebar posts={post} blogPostTags={blogPostTags}/>
+            <Sidebar posts={{}} blogPostTags={blogPostTags} />
         </section>
     )
 }
@@ -110,32 +84,52 @@ export default Posts
 
 // implementing getServerSideProps for server side fetching posts
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const userId  = context.query.userId ;
-    console.log("context---",context)
+
+
+
+    const { postId } = context.query as unknown as IPostQuery;
+    let comments: Comment[] = [];
 
     //   fetching data
+
+    
     try {
-        const postsRef = ref(database, 'publish');
-        const postsQuery = query(postsRef, orderByChild('userId'), equalTo(userId));
-        const snapshot = await get(postsQuery);
-        if (snapshot.exists()) {
-            const posts = snapshot.val() as IPost;
+        const dbRef = ref(database);
+        const postSnapshot = await get(child(dbRef, `/drafts/${postId}`));
+        const commentSnapshot = await get(child(dbRef, `/comments/${postId}`));
+
+        if (postSnapshot.exists()) {
+
+            // getting comments
+            const post = postSnapshot.val() as IPost;
+            if (commentSnapshot.exists()) {
+                const commentsData=commentSnapshot.val() as ICommentsData;
+                comments = Object.values(commentsData);
+            }
+
             return {
                 props: {
-                    posts,
-                    userId
+                    post,
+                    exist: true,
+                    postId,
+                    comments
                 }
             }
+
+
         } else {
             console.log("No posts available");
         }
     } catch (error) {
-        console.error("Fire:--->",error);
+        console.error("Fire:--->", error);
     }
 
     return {
         props: {
-            posts: {}
+            post: {},
+            exist: false,
+            postId,
+            comments
         }
     }
 }

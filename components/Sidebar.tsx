@@ -29,7 +29,7 @@ const Sidebar = ({ posts, blogPostTags }: IProps) => {
                 <h3 className='text-xl font-semibold font-nunito m-2'>
                     <span className='bg-primary p-2 text-white'>Search</span> With Tags</h3>
                 <div className=' flex flex-wrap flex-row p-2 pt-8'>
-                    {blogPostTags.slice(0, 6).map((tag, index) => <p className='bg-white text-primary border border-primary p-2 rounded-2xl text-sm m-2 w-fit'>{tag}</p>)}
+                    {blogPostTags.slice(0, 6).map((tag, index) => <p key={tag} className='bg-white text-primary border border-primary p-2 rounded-2xl text-sm m-2 w-fit'>{tag}</p>)}
                 </div>
             </div>
         </section>

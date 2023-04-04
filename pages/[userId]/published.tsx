@@ -88,7 +88,7 @@ function getExcerpt(content: string): string {
 }
 
 
-// implementing getServerSideProps for serverside fetching posts
+// implementing getServerSideProps for server side fetching posts
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const userId  = context.query.userId as string;
 

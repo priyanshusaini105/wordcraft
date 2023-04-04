@@ -5,4 +5,5 @@ import LogInWithGoogle from './LogInWithGoogle';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import CommentSection from './CommentSection';
-export {Navbar,Hero,Footer,LogInWithGoogle,CreateBlogPostForm,Sidebar,CommentSection}
+import PostsListsBody from './PostsListsBody';
+export {Navbar,Hero,Footer,LogInWithGoogle,CreateBlogPostForm,Sidebar,CommentSection,PostsListsBody}
