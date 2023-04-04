@@ -36,7 +36,8 @@ interface IPublishedProps {
 }
 
 const Published = ({posts,userId}:IPublishedProps) => {
-    
+
+    console.log(posts)
 
     return (
         <div className='bg-accent p-5 mb-5 flex flex-col md:flex-row gap-5'>

@@ -69,7 +69,7 @@ const CreateBlogPostForm = ({ getFormData }: { getFormData: (data: ICreatePostFo
                         <div className="flex items-center">
                             <input
                                 className="shadow-inner appearance-none border rounded w-full py-2 px text-gray-700 leading-tight focus:outline-none focus:shadow-outlin p-1"
-                                id="tags" type="text" placeholder="Enter a tag and press Enter" value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyDown={handleTagInputKeyDown} />
+                                id="tags" type="text" placeholder="Enter a tag and press Enter" value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyDown={handleTagInputKeyDown} required={tags.length===0} />
                         </div>
                     </div>
                 </div>

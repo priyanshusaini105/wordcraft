@@ -12,6 +12,8 @@ import { ProfileContext } from '@/context';
 interface IPostInitialData extends ICreatePostFormData {
   id: string;
 }
+
+
 const Write = () => {
   const router = useRouter();
   const data = JSON.parse(typeof router.query.write === 'undefined' ? '{}' : router.query.write as string) as IPostInitialData;
@@ -22,17 +24,19 @@ const Write = () => {
 
 
   const editorRef = useRef<TinyMCEEditor | null>(null);
+
   const publish = () => {
     if (editorRef.current) {
-      set(ref(database, `users/${profileData.userId}/publish/${data.id}`), {
+      set(ref(database, `/publish/${data.id}`), {
         ...data,
+        userId:profileData.userId,
         content: editorRef.current.getContent()
       }).then(() => {
         editorRef.current?.setContent('');
         editorRef.current?.setDirty(false);
         editorRef.current?.save();
         alert('Published Successfully');
-        router.push('/' + profileData.userId + '/publish');
+        router.push('/' + profileData.userId + '/published');
       }).catch(error => {
         console.error(error);
         alert("Error while Publishing")
@@ -41,7 +45,7 @@ const Write = () => {
   }
   const draft = () => {
     if (editorRef.current) {
-      set(ref(database, `users/${profileData.userId}/draft/${data.id}`), {
+      set(ref(database, `/drafts/${data.id}`), {
         ...data,
         content: editorRef.current.getContent()
       }).then(() => {
@@ -57,6 +61,9 @@ const Write = () => {
     };
   }
 
+useEffect(() => {
+  
+}, [])
 
 
   return (
@@ -104,3 +111,4 @@ const Write = () => {
 }
 
 export default Write
+

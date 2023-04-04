@@ -39,7 +39,7 @@ const Profile = () => {
           </div>
           <div className="flex flex-col mt-4">
             <Link href={`${userId}/published`} className="text-center duration-150 ease-in-out bg-primary text-accent hover:bg-accent hover:text-primary rounded-full  p-2 ">Published Posts</Link>
-            <Link href={`${userId}/drafts`} className="text-center duration-150 ease-in-out text-primary bg-accent hover:text-accent hover:bg-primary mt-2 rounded-full  p-2 ">Drafts Posts</Link>
+            <Link href={`${userId}/draft`} className="text-center duration-150 ease-in-out text-primary bg-accent hover:text-accent hover:bg-primary mt-2 rounded-full  p-2 ">Drafts Posts</Link>
           </div>
 
         </section>

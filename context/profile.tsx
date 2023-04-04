@@ -68,7 +68,7 @@ const ProfileProvider = ({ children }: ProfileProviderProps) => {
   // redirect if user is visited to restricted links
   const router = useRouter();
 
-  const restrictedLinks = ['/write', '/profile'];
+  const restrictedLinks = ['/write', '/profile', '/edit'];
   const restrictedIfLogedIn=['/login','/signup']
 
   useEffect(() => {

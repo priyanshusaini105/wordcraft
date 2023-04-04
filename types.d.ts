@@ -31,6 +31,7 @@ export interface IPost {
   tags: string[];
   image: string;
   author:string;
+  userId:string;
 }
 export interface IPostsData {
   [key: string]: IPost;

@@ -6,4 +6,5 @@ import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import CommentSection from './CommentSection';
 import PostsListsBody from './PostsListsBody';
-export {Navbar,Hero,Footer,LogInWithGoogle,CreateBlogPostForm,Sidebar,CommentSection,PostsListsBody}
+import PostBody from './PostBody';
+export {Navbar,Hero,Footer,LogInWithGoogle,CreateBlogPostForm,Sidebar,CommentSection,PostsListsBody,PostBody}

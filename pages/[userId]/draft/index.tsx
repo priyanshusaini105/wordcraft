@@ -35,7 +35,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       const postsRef = ref(database, 'drafts');
       const postsQuery = query(postsRef, orderByChild('userId'), equalTo(userId));
       const snapshot = await get(postsQuery);
-      console.log(snapshot)
       if (snapshot.exists()) {
           const posts = snapshot.val() as IPostsData;
           return {

@@ -1,9 +1,8 @@
 author icon click
 topic click
 custom error page with home button
-custom error page
 fetch all the data on server side
 post font change
-sweet alert
+restrict pages
 #issue 
 google signInWithPopup not working in mobile
