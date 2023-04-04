@@ -21,3 +21,29 @@ export interface IProfileData{
   userId:string;
   login:boolean;
 }
+
+export interface IPost {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  tags: string[];
+  image: string;
+  author:string;
+}
+export interface IPostsData {
+  [key: string]: IPost;
+}
+export interface IPostQuery{
+  userId:string;
+  postId:string;
+}
+export interface Comment {
+  user: string;
+  comment: string;
+}
+
+export interface ICommentsData{
+  [postId:string]:Comment
+}

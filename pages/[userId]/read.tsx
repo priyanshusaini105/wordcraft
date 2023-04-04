@@ -6,6 +6,8 @@ import Error from 'next/error'
 import Image from 'next/image'
 import { FaUserCircle, FaRegCalendarAlt } from "react-icons/fa";
 import Link from 'next/link'
+import { onValue, ref } from 'firebase/database'
+import { database } from '@/config/firebase'
 
 let blogPostTags = [
   "JavaScript",
@@ -32,11 +34,23 @@ let blogPostTags = [
 
 const Posts = () => {
   const router = useRouter()
-  const post = postData.blogPosts.filter(post => post.url === router.query.read)[0];
-  console.log(router.query.read, postData.blogPosts[0].url)
-  console.log(post)
-  if (typeof post === "undefined")
+
+  // const post = postData.blogPosts.filter(post => post.url === router.query.read)[0];
+  // console.log(router.query.read, postData.blogPosts[0].url)
+  // console.log(post)
+
+  const postId = router.query.read;
+
+  if (typeof postId === "undefined")
     return <Error statusCode={404} title='Post Not Found' withDarkMode={false} />
+
+    onValue(ref(database, '/posts/' + ), (snapshot) => {
+      const username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+      // ...
+    }, {
+      onlyOnce: true
+    })
+
   return (
     <section className='container flex gap-5 pt-5 md:pt-16 flex-col md:flex-row'>
       <Head>

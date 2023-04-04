@@ -3,8 +3,9 @@ comments
 author icon click
 topic click
 custom error page with home button
-confirm email
-chips suggestion
 custom error page
+fetch all the data on server side
+post font change
+sweet alert
 #issue 
 google signInWithPopup not working in mobile

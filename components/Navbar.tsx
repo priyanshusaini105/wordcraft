@@ -30,7 +30,7 @@ const Navbar = () => {
     const { login, photo, email, name, userId } = useContext(ProfileContext);
 
     return (
-        <nav className='lg:px-10 px-1 bg-accent fixed top-0 left-0 right-0 z-50 flex justify-between items-center gap-2 bg-opacity-20 backdrop-blur shadow-md'>
+        <nav className='h-14 lg:px-10 px-1 bg-accent fixed top-0 left-0 right-0 z-50 flex justify-between items-center gap-2 bg-opacity-20 backdrop-blur shadow-md'>
             <Link href="/">
                 <Image src="/img/logo-lg.png" alt="logo" width="200" height="35" />
             </Link>
@@ -45,8 +45,8 @@ const Navbar = () => {
                 ))}
                 {login ?
                     <li className='m-3 relative'>
-                        <Link href={`/user/${userId}`} className='' title={name ?? "Profile"}>
-                            {photo ?
+                        <Link href={`/${userId}`} className='' title={name ?? "Profile"}>
+                            {photo!=="" ?
                                 <Image
                                     src={photo}
                                     alt="Unable to load Image"

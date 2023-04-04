@@ -1,5 +1,5 @@
 import React from 'react'
-import blogData from '../../postData.json'
+import blogData from '../postData.json'
 import Head from 'next/head'
 import Image from 'next/image'
 import { FaUserCircle, FaRegCalendarAlt } from "react-icons/fa";
