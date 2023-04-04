@@ -56,7 +56,7 @@ const signup = () => {
                 photo:""
             });
 
-            toast.succuess('Account created Successfully');
+            toast.success('Account created Successfully');
             router.push('/');
         } catch (error) {
             if (isFirebaseError(error)) {

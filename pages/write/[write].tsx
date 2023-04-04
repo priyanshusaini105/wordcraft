@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { database } from '@/config/firebase';
 import { ref, set } from 'firebase/database';
 import { ProfileContext } from '@/context';
+import { toast } from 'react-toastify';
 
 interface IPostInitialData extends ICreatePostFormData {
   id: string;

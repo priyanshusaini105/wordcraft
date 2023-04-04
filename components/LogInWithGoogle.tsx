@@ -29,7 +29,7 @@ const LogInWithGoogle = () => {
             await signInWithRedirect(auth, provider);
             const result = await getRedirectResult(auth);
             if (!result) {
-                toast.wrning('No user found');
+                toast.warning('No user found');
                 return;
             }
             const user = result.user;
