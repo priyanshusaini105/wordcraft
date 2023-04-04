@@ -1,8 +1,3 @@
-author icon click
 topic click
-custom error page with home button
-fetch all the data on server side
 post font change
 restrict pages
-#issue 
-google signInWithPopup not working in mobile

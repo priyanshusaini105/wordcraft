@@ -1,6 +1,6 @@
 import { auth, database } from '@/config/firebase';
 import { FirebaseError } from 'firebase/app';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { GoogleAuthProvider, getRedirectResult, signInWithPopup, signInWithRedirect } from 'firebase/auth';
 import { ref, set } from 'firebase/database';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -24,9 +24,14 @@ const LogInWithGoogle = () => {
     // for google sign in
     const signInWithGoogle = async () => {
         try {
-            const result = await signInWithPopup(auth, provider);
+            await signInWithRedirect(auth, provider);
+            const result = await getRedirectResult(auth);
+            if (!result) {
+                alert('No user found');
+                return;
+            }
             const user = result.user;
-            
+
             await set(ref(database, `users/${user.uid}/profile`), {
                 name: user.displayName,
                 email: user.email,

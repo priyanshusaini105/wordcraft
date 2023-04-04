@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useLayoutEffect, useState } from 'react';
+import { createContext, ReactNode, useEffect,  useState } from 'react';
 import { IProfileData } from '@/types';
 import { auth, database } from '@/config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -99,19 +99,3 @@ const ProfileProvider = ({ children }: ProfileProviderProps) => {
 
 export default ProfileProvider;
 
-// export  function getServerSideProps():GetServerSideProps {
-//   const [profileDat, setProfileData] = useState<IProfileData>({
-//     name: '',
-//     email: '',
-//     photo: '',
-//     userId: '',
-//     role: 'reader',
-//     login: false,
-//   });
-// console.log(profileDat)
-//   return {
-//     props: {
-//       profileDat
-//     }, // will be passed to the page component as props
-//   }
-// }

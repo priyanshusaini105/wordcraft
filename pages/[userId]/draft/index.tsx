@@ -1,10 +1,8 @@
-import { PostsListsBody, Sidebar } from '@/components';
+import { DraftPostsListsBody,  } from '@/components';
 import { database } from '@/config/firebase';
 import { IPostsData } from '@/types';
 import { ref,  get, equalTo, orderByChild, query } from 'firebase/database';
 import { GetServerSideProps } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
 
 
 interface IDraftProps {
@@ -16,7 +14,7 @@ const Drafts = ({posts,userId}:IDraftProps) => {
   
 
   return (
-    <PostsListsBody posts={posts} userId={userId}/>
+    <DraftPostsListsBody posts={posts} userId={userId}/>
   )
 }
 

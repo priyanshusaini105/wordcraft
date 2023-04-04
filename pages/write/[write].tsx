@@ -1,4 +1,4 @@
-import { ICreatePostFormData } from '@/types';
+import { ICreatePostFormData, IPost } from '@/types';
 import { Editor } from '@tinymce/tinymce-react';
 import { Editor as TinyMCEEditor } from 'tinymce';
 import Head from 'next/head';
@@ -25,24 +25,31 @@ const Write = () => {
 
   const editorRef = useRef<TinyMCEEditor | null>(null);
 
-  const publish = () => {
+  const publish = async () => {
     if (editorRef.current) {
-      set(ref(database, `/publish/${data.id}`), {
+      const date = new Date().toLocaleDateString('en-US').replace(/\//g, '-');
+      const postData: IPost = {
         ...data,
-        userId:profileData.userId,
-        content: editorRef.current.getContent()
-      }).then(() => {
-        editorRef.current?.setContent('');
+        userId: profileData.userId,
+        content: editorRef.current.getContent(),
+        createdAt: date,
+        updatedAt: date,
+        author: profileData.name,
+      };
+      try {
+        await set(ref(database, `/publish/${data.id}`), postData);
+        editorRef.current?.setContent("");
         editorRef.current?.setDirty(false);
         editorRef.current?.save();
-        alert('Published Successfully');
-        router.push('/' + profileData.userId + '/published');
-      }).catch(error => {
+        alert("Published Successfully");
+        router.push("/" + profileData.userId + "/published");
+      } catch (error) {
         console.error(error);
-        alert("Error while Publishing")
-      })
-    };
-  }
+        alert("Error while Publishing");
+      }
+    }
+  };
+  
   const draft = () => {
     if (editorRef.current) {
       set(ref(database, `/drafts/${data.id}`), {
@@ -110,5 +117,4 @@ useEffect(() => {
   )
 }
 
-export default Write
-
+export default Write;
