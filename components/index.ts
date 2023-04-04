@@ -7,4 +7,5 @@ import Sidebar from './Sidebar';
 import CommentSection from './CommentSection';
 import PostsListsBody from './PostsListsBody';
 import PostBody from './PostBody';
-export {Navbar,Hero,Footer,LogInWithGoogle,CreateBlogPostForm,Sidebar,CommentSection,PostsListsBody,PostBody}
+import Spinner from './Spinner';
+export {Navbar,Hero,Footer,LogInWithGoogle,CreateBlogPostForm,Sidebar,CommentSection,PostsListsBody,PostBody,Spinner}

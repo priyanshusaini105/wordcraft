@@ -4,7 +4,7 @@ import { auth, database } from '@/config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { ref, child, get } from 'firebase/database';
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
+import {Spinner} from '@/components';
 
 interface ProfileProviderProps {
   children: ReactNode;
@@ -20,6 +20,9 @@ export const ProfileContext = createContext<IProfileData>({
 });
 
 const ProfileProvider = ({ children }: ProfileProviderProps) => {
+  
+  const [status, setStatus] = useState<'loading'|"success"|'error'>('loading');
+
   const [profileData, setProfileData] = useState<IProfileData>({
     name: '',
     email: '',
@@ -32,11 +35,12 @@ const ProfileProvider = ({ children }: ProfileProviderProps) => {
   // get user profile data from firebase
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      setStatus('loading');
       if (user) {
         try {
           const profileRef = child(ref(database), `users/${user.uid}/profile`);
           const snapshot = await get(profileRef);
-
+          
           if (snapshot.exists()) {
             const data = snapshot.val() as IProfileData;
             setProfileData({
@@ -47,17 +51,21 @@ const ProfileProvider = ({ children }: ProfileProviderProps) => {
               role: data.role,
               login: true,
             });
+            setStatus('success');
           } else {
             console.log('No data available');
+            setStatus('error');
           }
         } catch (error) {
           console.error(error);
+          setStatus('error');
         }
       } else {
         setProfileData({
             ...profileData,
             login: false,
         });
+        setStatus('success');
       }
     });
     return () => unsubscribe();
@@ -84,7 +92,7 @@ const ProfileProvider = ({ children }: ProfileProviderProps) => {
 
   return (
     <ProfileContext.Provider value={profileData}>
-      {children}
+      {status==="loading"?<Spinner/>:children}
     </ProfileContext.Provider>
   );
 };
