@@ -10,6 +10,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import React, { useContext, useRef } from 'react'
 import { Editor as TinyMCEEditor } from 'tinymce'
+import { toast } from 'react-toastify';
 
 
 interface IEditPostProps {
@@ -38,7 +39,7 @@ const Edit: React.FC<IEditPostProps> = ({ post, exist, postId }) => {
                 editorRef.current?.setContent('');
                 editorRef.current?.setDirty(false);
                 editorRef.current?.save();
-                alert('Published Successfully');
+                toast.info('Published Successfully');
                 remove(ref(database,`/drafts/${postId}`))
                     .then(() => {
                     })
@@ -48,7 +49,7 @@ const Edit: React.FC<IEditPostProps> = ({ post, exist, postId }) => {
                 router.push('/' + profileData.userId + '/published');
             }).catch(error => {
                 console.error(error);
-                alert("Error while Publishing")
+                toast.error("Error while Publishing")
             })
         };
     }
@@ -63,11 +64,11 @@ const Edit: React.FC<IEditPostProps> = ({ post, exist, postId }) => {
                 editorRef.current?.setContent('');
                 editorRef.current?.setDirty(false);
                 editorRef.current?.save();
-                alert('Drafted Successfully');
+                toast.info('Drafted Successfully');
                 router.push('/' + profileData.userId + '/draft');
             }).catch((err) => {
                 console.error(err);
-                alert("Error while drafting")
+                toast.error("Error while drafting")
             });
         };
     }

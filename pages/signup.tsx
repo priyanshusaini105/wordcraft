@@ -12,6 +12,7 @@ import { useRouter } from 'next/router';
 import { LogInWithGoogle } from '@/components';
 import { ref, set } from 'firebase/database';
 import { FirebaseError } from 'firebase/app';
+import { toast } from 'react-toastify';
 
 
 
@@ -55,13 +56,13 @@ const signup = () => {
                 photo:""
             });
 
-            alert('Account created Successfully');
+            toast.succuess('Account created Successfully');
             router.push('/');
         } catch (error) {
             if (isFirebaseError(error)) {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                alert(`Error code: ${errorCode}\n ${errorMessage}`);
+                toast.error(`Error code: ${errorCode}\n ${errorMessage}`);
                 console.error(`Error while creating account ${errorMessage}`);
             }
             else

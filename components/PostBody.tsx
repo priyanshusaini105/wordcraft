@@ -6,7 +6,6 @@ import Image from "next/image";
 import Head from "next/head";
 import { BsLink45Deg } from "react-icons/bs";
 import { useCopyToClipboard } from "@/hooks";
-import { ToastContainer } from "react-toastify";
 import Dropdown from "./Dropdown";
 import { ProfileContext } from "@/context";
 import { useContext } from "react";
@@ -20,7 +19,6 @@ export default function PostBody({ post,  comments,isDraft }: { post: IPost, com
     
     return (
         <section className='container flex gap-5 pt-5 md:pt-16 flex-col md:flex-row'>
-            <ToastContainer />
             <Head>
                 <title>{post.title ?? "Not Found"}</title>
             </Head>

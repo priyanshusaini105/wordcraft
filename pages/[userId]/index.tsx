@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React, { useContext, useState } from 'react'
 import { useRouter } from 'next/router';
 import Error from 'next/error';
-import { Flip, ToastContainer, toast } from 'react-toastify';
+import { Flip,  toast } from 'react-toastify';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/config/firebase';
 
@@ -15,18 +15,17 @@ const Profile = () => {
 
   const handleSignOut = () => {
     signOut(auth).then(() => {
-      toast.success('Sign Out Successfully', { transition: Flip, position: 'top-center' })
+      toast.success('Sign Out Successfully')
     }).catch((error) => {
       // An error happened.
       console.error("Error While SignOut", {})
-      toast.error("Error While SignOut", { transition: Flip, position: 'top-center' })
+      toast.error("Error While SignOut")
     });
   }
 
   if (isMyProfile) {
     return (
       <div className="flex justify-between p-5">
-        <ToastContainer />
         <section className="m-5 md:m-10">
           <h1 className="text-4xl font-bold">Profile</h1>
           <div className="flex justify-center m-5">
@@ -68,10 +67,7 @@ const Profile = () => {
       </div >
     );
   }
-  return <>
-    <ToastContainer />
-    <Error statusCode={307} title='You can Not see this Profile' withDarkMode={false} />
-  </>
+  return   <Error statusCode={307} title='You can Not see this Profile' withDarkMode={false} />
 }
 
 export default Profile 

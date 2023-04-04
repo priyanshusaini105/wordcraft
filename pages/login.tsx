@@ -11,6 +11,7 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/config/firebase';
 import { useRouter } from 'next/router';
 import { FirebaseError } from 'firebase/app';
+import { toast } from 'react-toastify';
 
 const PASS_REGEX = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
@@ -42,7 +43,7 @@ const login = () => {
       if (isFirebaseError(error)) {
         const errorCode = error.code;
         const errorMessage = error.message;
-        alert(`Error code: ${errorCode}\n ${errorMessage}`);
+        toast.error(`Error code: ${errorCode}\n ${errorMessage}`);
         console.error(`Error while creating account ${errorMessage}`);
       }
       else

@@ -9,6 +9,8 @@ import type { AppProps } from 'next/app'
 import { Nunito, Poppins } from 'next/font/google'
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
+import { Flip, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 
 const nunito = Nunito({
@@ -35,6 +37,10 @@ export default function App({ Component, pageProps }: AppProps) {
         </Head>
         <Navbar />
         <main className={" pt-[3.32rem] font-poppins text-text "}>
+    <ToastContainer
+    transition ={Flip} position= 'top-center' autoClose={2000}
+    />
+
           <Component {...pageProps} />
         </main>
         <Footer />

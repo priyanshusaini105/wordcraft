@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import { Flip, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
 
 
 export function useCopyToClipboard(): [boolean, (text: string) => void] {

@@ -5,6 +5,8 @@ import { ref, set } from 'firebase/database';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
+import { toast } from 'react-toastify';
+
 
 
 const provider = new GoogleAuthProvider();
@@ -27,7 +29,7 @@ const LogInWithGoogle = () => {
             await signInWithRedirect(auth, provider);
             const result = await getRedirectResult(auth);
             if (!result) {
-                alert('No user found');
+                toast.wrning('No user found');
                 return;
             }
             const user = result.user;
@@ -42,7 +44,7 @@ const LogInWithGoogle = () => {
             if (isFirebaseError(error)) {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                alert(`Error code: ${errorCode}\n ${errorMessage}`);
+                toast.error(`Error code: ${errorCode}\n ${errorMessage}`);
                 console.error(`Error while creating account ${errorMessage}`);
             }
             else
@@ -53,7 +55,7 @@ const LogInWithGoogle = () => {
     return (
         <button onClick={() => signInWithGoogle()} className='flex justify-center w-full gap-4 items-center font-nunito rounded-full my-4 p-3 shadow-lg bg-white text-lg border border-gray-100'>
             <FcGoogle size={25} />
-            SignUp With Google
+            SignUp With Google            
         </button>
     )
 }
