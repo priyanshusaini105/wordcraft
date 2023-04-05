@@ -18,10 +18,10 @@ const poppins = Poppins({
   weight: ['400', '500', '600', '700']
 })
 
-const sourceSerifPro =Source_Serif_Pro({
+const sourceSerifPro = Source_Serif_Pro({
   variable: '--font-sourceSerifPro',
   subsets: ['latin'],
-  weight: ['200','300','400','600','700','900']
+  weight: ['200', '300', '400', '600', '700', '900']
 })
 
 
@@ -30,11 +30,11 @@ const sourceSerifPro =Source_Serif_Pro({
 export default function App({ Component, pageProps }: AppProps) {
 
   return (
-    <ProfileProvider >
-      <div className={`${nunito.variable} font-poppins ${poppins.variable} ${sourceSerifPro.variable}`}>
-        <Head>
-          <title>WordCraft | Create & Connect</title>
-        </Head>
+    <div className={`${nunito.variable} font-poppins ${poppins.variable} ${sourceSerifPro.variable}`}>
+      <Head>
+        <title>WordCraft | Create & Connect</title>
+      </Head>
+      <ProfileProvider >
         <Navbar />
         <main className={" pt-[3.32rem] font-poppins text-text "}>
           <ToastContainer
@@ -44,7 +44,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </main>
         <Footer />
-      </div>
-    </ProfileProvider>
+      </ProfileProvider>
+    </div>
   )
 }

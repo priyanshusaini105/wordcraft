@@ -1,37 +1,43 @@
 import { ICreatePostFormData } from '@/types';
 import React, { useState } from 'react'
 import { RxCross2 } from 'react-icons/rx';
+import { toast } from 'react-toastify';
 
 const CreateBlogPostForm = ({ getFormData }: { getFormData: (data: ICreatePostFormData) => void }) => {
     const [title, setTitle] = useState("");
     const [image, setImage] = useState("");
     const [tags, setTags] = useState<string[]>([]);
     const [tagInput, setTagInput] = useState("");
-  
+
     const handleTagInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-      if (event.key === "Enter" && tagInput.trim() !== "") {
-        const newTag = tagInput.trim();
-        if (!tags.includes(newTag)) {
-          setTags((prevTags) => [...prevTags, newTag]);
+        if (event.key === "Enter" && tagInput.trim() !== "") {
+            const newTag = tagInput.trim();
+            if (!tags.includes(newTag)) {
+                setTags((prevTags) => [...prevTags, newTag]);
+            }
+            event.preventDefault(); // prevent form submission on "Enter" key press
+            setTagInput("");
         }
-        event.preventDefault(); // prevent form submission on "Enter" key press
-        setTagInput("");
-      }
     };
-  
+
     const handleTagDelete = (tag: string) => {
-      setTags((prevTags) => prevTags.filter((t) => t !== tag));
+        setTags((prevTags) => prevTags.filter((t) => t !== tag));
     };
-  
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      const formData: ICreatePostFormData = {
-        title,
-        image,
-        tags,
-      };
-      getFormData(formData);
-    };  
+        event.preventDefault();
+        const formData: ICreatePostFormData = {
+            title,
+            image,
+            tags,
+        };
+        if (tags.length === 0) {
+            toast.warning('Press Enter after entering the Tag')
+            return;
+        }
+
+        getFormData(formData);
+    };
 
     return (
         <div className="max-w-lg  bg-white shadow-lg rounded-lg p-6">
@@ -69,7 +75,7 @@ const CreateBlogPostForm = ({ getFormData }: { getFormData: (data: ICreatePostFo
                         <div className="flex items-center">
                             <input
                                 className="shadow-inner appearance-none border rounded w-full py-2 px text-gray-700 leading-tight focus:outline-none focus:shadow-outlin p-1"
-                                id="tags" type="text" placeholder="Enter a tag and press Enter" value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyDown={handleTagInputKeyDown} required={tags.length===0} />
+                                id="tags" type="text" placeholder="Enter a tag and press Enter" value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyDown={handleTagInputKeyDown} required={tags.length === 0} />
                         </div>
                     </div>
                 </div>

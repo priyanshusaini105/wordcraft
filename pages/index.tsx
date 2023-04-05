@@ -23,8 +23,8 @@ export default function Home({ posts }: { posts: IPostsData }) {
       <div className='divide-y flex flex-col'>
         <Hero />
         <div id='read'>
-        <RenderPosts posts={posts} />
-        {/* showing all posts */}
+          <RenderPosts posts={posts} />
+          {/* showing all posts */}
           <div className='bg-accent p-5 mb-5 flex flex-col md:flex-row gap-5'>
             <section className="w-full md:w-3/5">
               <div className='ml-5'>
@@ -35,21 +35,24 @@ export default function Home({ posts }: { posts: IPostsData }) {
               <div className='flex justify-center'></div>
               <ul className=" w-full">
                 {Object.keys(posts).map((key) => {
-                  const { image, title, tags, content, id,userId } = posts[key]
+                  const { image, title, tags, content, id, userId, createdAt } = posts[key]
                   return (
-                    <li key={key} className="bg-white rounded-lg m-5 flex gap-5 p-5 max-w-xl flex-col items-center md:flex-row">
-                      <Image
-                        src={image}
-                        alt={title}
-                        width={200}
-                        height={50}
-                        className='rounded-lg bg-white'
-                      />
-                      <Link href={`/${userId}/${id}`}>
-                        <span className="bg-primary/20 text-xs rounded-md p-1 text-gray-500">{tags[0]}</span>
-                        <h2 className="font-semibold font-nunito my-2">{title}</h2>
-                        <hr />
-                        <p className="text-sm m-2   font-serif leading-7">{getExcerpt(content)}</p>
+                    <li key={key}>
+                      <Link href={`/${userId}/${id}`} className="bg-white rounded-lg m-5 flex gap-5 p-5 max-w-xl flex-col items-center md:flex-row">
+                        <Image
+                          src={image}
+                          alt={title}
+                          width={200}
+                          height={50}
+                          className='rounded-lg bg-white'
+                        />
+                        <div>
+                          <span className="bg-primary/20 text-xs rounded-md p-1 text-gray-500">{tags[0]}</span>
+                          <h2 className="text-sm inline ml-8 font-nunito ">{createdAt}</h2>
+                          <h2 className="font-semibold font-nunito my-2">{title}</h2>
+                          <hr />
+                          <p className="text-sm m-2   font-serif leading-7">{getExcerpt(content)}</p>
+                        </div>
                       </Link>
                     </li>
                   )
@@ -99,7 +102,7 @@ function getExcerpt(content: string): string {
   const maxLength = 200;
   const text = content.replace(/<[^>]*>?/gm, ''); // remove HTML tags
   if (text.length > maxLength) {
-      return text.slice(0, maxLength) + "...";
+    return text.slice(0, maxLength) + "...";
   }
   return text;
 }

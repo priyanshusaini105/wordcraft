@@ -19,7 +19,7 @@ import { toast } from 'react-toastify';
 
 const PASS_REGEX = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-// checkinf if error is form firebase or not
+// checking if error is form firebase or not
 const isFirebaseError = (error: unknown): error is FirebaseError => {
     return (error as FirebaseError).code !== undefined;
 }

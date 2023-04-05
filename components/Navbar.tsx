@@ -35,14 +35,18 @@ const Navbar = () => {
                 <Image src="/img/logo-lg.png" alt="logo" width="200" height="35" />
             </Link>
             <ul className='list-none m-0 p-0 flex items-center'>
-                {navItems.map((item, index) => (
-                    <li key={index} className="mx-2 lg:mx-4 relative">
-                        <Link href={item.link} className='text-gray-700 font-bold text-sm uppercase no-underline relative transition-colors duration-300 hover:text-primary flex gap-1 items-center'>
-                            {<item.icon size={22} />}
-                            {item.name}
+                    <li className="mx-2 lg:mx-4 relative">
+                        <Link href='/write' className='text-gray-700 font-bold text-sm uppercase no-underline relative transition-colors duration-300 hover:text-primary flex gap-1 items-center'>
+                            <TfiPencilAlt size={22} />
+                            Write
                         </Link>
                     </li>
-                ))}
+                    <li className="mx-2 lg:mx-4 relative hidden md:block">
+                        <Link href='/#read' className='text-gray-700 font-bold text-sm uppercase no-underline relative transition-colors duration-300 hover:text-primary flex gap-1 items-center'>
+                            <TfiBook size={22} />
+                            Read
+                        </Link>
+                    </li>
                 {login ?
                     <li className='m-3 relative'>
                         <Link href={`/${userId}`} className='' title={name ?? "Profile"}>
@@ -54,7 +58,7 @@ const Navbar = () => {
                                     height={30}
                                     className='rounded-full'
                                 /> :
-                                <span className='text-white font-semibold text-sm uppercase no-underline w-8 h-8 bg-primary rounded-full relative flex justify-center items-center'>{name ? name[0] : email[0]}</span>
+                                <span className='text-white font-semibold text-sm uppercase no-underline w-8 h-8 bg-primary rounded-full relative flex justify-center items-center'>{name[0]}</span>
                             }
                         </Link>
                     </li>

@@ -70,9 +70,6 @@ const Write = () => {
     };
   }
 
-useEffect(() => {
-  
-}, [])
 
 
   return (
