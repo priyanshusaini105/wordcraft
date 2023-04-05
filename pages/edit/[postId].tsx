@@ -109,10 +109,8 @@ const Edit: React.FC<IEditPostProps> = ({ post, exist, postId }) => {
                         toolbar: 'undo redo | blocks | ' +
                             'bold italic forecolor | alignleft aligncenter ' +
                             'alignright alignjustify | bullist numlist outdent indent | ' +
-                            'removeformat | help' + ' code image fontfamily',
-                        autosave_retention: '30m',
-                        font_family_formats: 'Arial=arial,helvetica,sans-serif; Courier New=courier new,courier,monospace; AkrutiKndPadmini=Akpdmi-n;Nunito=nunito; Poppins=poppins',
-                        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                            'removeformat | help' + ' code image ',
+                        content_style: 'body { font-family:serif Helvetica,Arial,sans-serif; font-size:14px }',
                     }}
                 />
             </section>

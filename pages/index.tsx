@@ -22,9 +22,9 @@ export default function Home({ posts }: { posts: IPostsData }) {
       </Head>
       <div className='divide-y flex flex-col'>
         <Hero />
+        <div id='read'>
         <RenderPosts posts={posts} />
         {/* showing all posts */}
-        <div>
           <div className='bg-accent p-5 mb-5 flex flex-col md:flex-row gap-5'>
             <section className="w-full md:w-3/5">
               <div className='ml-5'>

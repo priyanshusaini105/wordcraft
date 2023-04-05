@@ -18,11 +18,11 @@ export default function PostBody({ post,  comments,isDraft }: { post: IPost, com
     const postId=post.id;
     
     return (
-        <section className='container flex gap-5 pt-5 md:pt-16 flex-col md:flex-row'>
+        <article className='container flex gap-5 pt-5 md:pt-16 flex-col md:flex-row'>
             <Head>
                 <title>{post.title ?? "Not Found"}</title>
             </Head>
-            <section className='md:w-8/12 border-r px-16 min-w-min'>
+            <section className='md:w-8/12 border-r px-3 md:px-16'>
                 {/* title */}
                 {/* <hr /> */}
                 <h1 className="text-4xl md:text-6xl font-semibold font-nunito m-2 text-black mb-8">{post.title}</h1>
@@ -59,6 +59,6 @@ export default function PostBody({ post,  comments,isDraft }: { post: IPost, com
                 </section>
             </section>
             <Sidebar posts={{}} blogPostTags={[]} />
-        </section >
+        </ article>
     );
 }

@@ -20,7 +20,7 @@ const navItems: INavItems[] = [{
 },
 {
     name: 'Read',
-    link: '/',
+    link: '/#read',
     icon: TfiBook,
     id: '2'
 },
