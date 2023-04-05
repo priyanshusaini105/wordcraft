@@ -26,7 +26,7 @@ export default function Home({ posts }: { posts: IPostsData }) {
         {/* showing all posts */}
         <div>
           <div className='bg-accent p-5 mb-5 flex flex-col md:flex-row gap-5'>
-            <section className=" w-3/5">
+            <section className="w-full md:w-3/5">
               <div className='ml-5'>
                 <h1 className="text-white bg-primary p-1 text-center text-2xl max-w-fit font-nunito inline">Published</h1>
                 <span className="mx-1 text-2xl font-nunito">Posts</span>
@@ -46,10 +46,10 @@ export default function Home({ posts }: { posts: IPostsData }) {
                         className='rounded-lg bg-white'
                       />
                       <Link href={`/${userId}/${id}`}>
-                        <span className="bg-green-100 text-xs rounded-md p-1 text-gray-500">{tags[0]}</span>
-                        <h2 className="font-semibold font-nunito">{title}</h2>
+                        <span className="bg-primary/20 text-xs rounded-md p-1 text-gray-500">{tags[0]}</span>
+                        <h2 className="font-semibold font-nunito my-2">{title}</h2>
                         <hr />
-                        <p className="text-sm m-2">{getExcerpt(content)}</p>
+                        <p className="text-sm m-2 font-sourceSerifPro">{getExcerpt(content)}</p>
                       </Link>
                     </li>
                   )

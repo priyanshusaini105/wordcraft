@@ -1,0 +1,37 @@
+[debug] [2023-04-05T03:40:21.175Z] ----------------------------------------------------------------------
+[debug] [2023-04-05T03:40:21.181Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\DELL\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-04-05T03:40:21.182Z] CLI Version:   11.25.2
+[debug] [2023-04-05T03:40:21.183Z] Platform:      win32
+[debug] [2023-04-05T03:40:21.183Z] Node Version:  v18.14.2
+[debug] [2023-04-05T03:40:21.185Z] Time:          Wed Apr 05 2023 09:10:21 GMT+0530 (India Standard Time)
+[debug] [2023-04-05T03:40:21.185Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-04-05T03:40:21.372Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-04-05T03:40:21.373Z] > authorizing via signed-in user (priyanshusaininew@gmail.com)
+[debug] [2023-04-05T03:40:21.374Z] [iam] checking project wordcraft-6c2f8 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-04-05T03:40:21.382Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/wordcraft-6c2f8:testIamPermissions [none]
+[debug] [2023-04-05T03:40:21.382Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/wordcraft-6c2f8:testIamPermissions x-goog-quota-user=projects/wordcraft-6c2f8
+[debug] [2023-04-05T03:40:21.383Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/wordcraft-6c2f8:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-05T03:40:23.330Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/wordcraft-6c2f8:testIamPermissions 200
+[debug] [2023-04-05T03:40:23.331Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/wordcraft-6c2f8:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-04-05T03:40:23.332Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/wordcraft-6c2f8/serviceAccounts/wordcraft-6c2f8@appspot.gserviceaccount.com:testIamPermissions [none]
+[debug] [2023-04-05T03:40:23.333Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/wordcraft-6c2f8/serviceAccounts/wordcraft-6c2f8@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2023-04-05T03:40:25.239Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/wordcraft-6c2f8/serviceAccounts/wordcraft-6c2f8@appspot.gserviceaccount.com:testIamPermissions 200
+[debug] [2023-04-05T03:40:25.239Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/wordcraft-6c2f8/serviceAccounts/wordcraft-6c2f8@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[debug] [2023-04-05T03:40:25.241Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/wordcraft-6c2f8 [none]
+[debug] [2023-04-05T03:40:25.885Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/wordcraft-6c2f8 200
+[debug] [2023-04-05T03:40:25.885Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/wordcraft-6c2f8 {"projectId":"wordcraft-6c2f8","projectNumber":"121545285033","displayName":"wordcraft","name":"projects/wordcraft-6c2f8","resources":{"hostingSite":"wordcraft-6c2f8","realtimeDatabaseInstance":"wordcraft-6c2f8-default-rtdb"},"state":"ACTIVE","etag":"1_8263ec92-467d-4be7-9006-8b4725813e48"}
+[debug] [2023-04-05T03:40:36.092Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/wordcraft-6c2f8/sites pageToken=&pageSize=10
+[debug] [2023-04-05T03:40:37.809Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/wordcraft-6c2f8/sites 200
+[debug] [2023-04-05T03:40:37.809Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/wordcraft-6c2f8/sites {"sites":[{"name":"projects/wordcraft-6c2f8/sites/wordcraft","defaultUrl":"https://wordcraft.web.app","appId":"1:121545285033:web:5180896796344f1962f8b8","type":"USER_SITE"},{"name":"projects/wordcraft-6c2f8/sites/wordcraft-6c2f8","defaultUrl":"https://wordcraft-6c2f8.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-04-05T03:40:37.810Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/wordcraft-6c2f8/sites 
+[debug] [2023-04-05T03:40:39.313Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/wordcraft-6c2f8/sites 200
+[debug] [2023-04-05T03:40:39.313Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/wordcraft-6c2f8/sites {"sites":[{"name":"projects/wordcraft-6c2f8/sites/wordcraft","defaultUrl":"https://wordcraft.web.app","appId":"1:121545285033:web:5180896796344f1962f8b8","type":"USER_SITE"},{"name":"projects/wordcraft-6c2f8/sites/wordcraft-6c2f8","defaultUrl":"https://wordcraft-6c2f8.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2023-04-05T03:40:39.314Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/wordcraft-6c2f8/webApps/-/config [none]
+[debug] [2023-04-05T03:40:40.714Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/wordcraft-6c2f8/webApps/-/config 200
+[debug] [2023-04-05T03:40:40.714Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/wordcraft-6c2f8/webApps/-/config {"projectId":"wordcraft-6c2f8","appId":"1:121545285033:web:5180896796344f1962f8b8","databaseURL":"https://wordcraft-6c2f8-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"wordcraft-6c2f8.appspot.com","apiKey":"AIzaSyDw0VcpyZuQkyw0X874leS-9w_2mv4IZks","authDomain":"wordcraft-6c2f8.firebaseapp.com","messagingSenderId":"121545285033","measurementId":"G-25YENX2G4R"}
+[debug] [2023-04-05T03:42:28.333Z] Error: Failed to collect page data for /[userId]/draft/[postId]
+    at C:\Coding Work\personal\devlopment\web\next js\wordcraft\node_modules\next\dist\build\utils.js:1055:15
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[error] 
+[error] Error: An unexpected error has occurred.

@@ -13,7 +13,7 @@ import { useContext } from "react";
 export default function PostBody({ post,  comments,isDraft }: { post: IPost, comments: Comment[] ,isDraft:boolean}): React.ReactElement<any, any> | null {
 
     const [copied, copyToClipboard] = useCopyToClipboard();
-    const {role}=useContext(ProfileContext);
+    const {role,userId}=useContext(ProfileContext);
 
     const postId=post.id;
     
@@ -22,7 +22,7 @@ export default function PostBody({ post,  comments,isDraft }: { post: IPost, com
             <Head>
                 <title>{post.title ?? "Not Found"}</title>
             </Head>
-            <section className='md:w-8/12 border-r px-16'>
+            <section className='md:w-8/12 border-r px-16 min-w-content'>
                 {/* title */}
                 {/* <hr /> */}
                 <h1 className="text-4xl md:text-6xl font-semibold font-nunito m-2 text-black mb-8">{post.title}</h1>
@@ -46,14 +46,14 @@ export default function PostBody({ post,  comments,isDraft }: { post: IPost, com
                         <button title="Copy Link" onClick={() => copyToClipboard(window.location.href)}>
                             <BsLink45Deg size={25} className="text-gray-600 hover:text-black duration-100 ease-in" />
                         </button>
-                        {role==="admin"||role==="author"&&<Dropdown isDraft={isDraft} post={post}/>}
+                        {(role==="admin"||userId===post.userId)&&<Dropdown isDraft={isDraft} post={post}/>}
                     </div>
                 </div>
 
                 <div className='flex justify-center my-4'>
                     <Image src={post.image} width={650} height={500} alt="Unable to load Image" className='m-6' />
                 </div>
-                <div dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div className='font-sourceSerifPro' dangerouslySetInnerHTML={{ __html: post.content }} />
                 <section>
                     <CommentSection postId={postId} comments={comments} />
                 </section>

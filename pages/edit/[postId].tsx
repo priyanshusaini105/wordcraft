@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import React, { useContext, useRef } from 'react'
 import { Editor as TinyMCEEditor } from 'tinymce'
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 
 interface IEditPostProps {

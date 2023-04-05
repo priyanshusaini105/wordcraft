@@ -13,6 +13,7 @@ import { LogInWithGoogle } from '@/components';
 import { ref, set } from 'firebase/database';
 import { FirebaseError } from 'firebase/app';
 import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 
 

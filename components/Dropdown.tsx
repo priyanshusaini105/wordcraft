@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 import { FiMoreHorizontal, FiEdit } from 'react-icons/fi'
 import { MdDeleteOutline } from 'react-icons/md'
 import { Zoom, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.min.css';
 import { useRouter } from 'next/router';
 import { IPost } from '@/types'
 

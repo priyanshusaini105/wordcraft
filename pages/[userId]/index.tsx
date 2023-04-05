@@ -7,6 +7,8 @@ import Error from 'next/error';
 import { Flip,  toast } from 'react-toastify';
 import { signOut } from 'firebase/auth';
 import { auth } from '@/config/firebase';
+import 'react-toastify/dist/ReactToastify.min.css';
+
 
 const Profile = () => {
   const { name, email, photo, userId } = useContext(ProfileContext)
