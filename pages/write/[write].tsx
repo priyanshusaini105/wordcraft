@@ -103,12 +103,12 @@ useEffect(() => {
             plugins: [
               'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
               'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-              'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount', 'autosave', 'imagetools'
+              'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount', 'autosave', 'imagetools','insert'
             ],
             toolbar: 'undo redo | blocks | ' +
               'bold italic forecolor | alignleft aligncenter ' +
               'alignright alignjustify | bullist numlist outdent indent | ' +
-              'removeformat | help' + ' code image fontfamily',
+              'removeformat | help' + ' code image fontfamily | insert',
             autosave_retention: '30m',
             font_family_formats: 'Arial=arial,helvetica,sans-serif; Courier New=courier new,courier,monospace; AkrutiKndPadmini=Akpdmi-n;Nunito=nunito; Poppins=poppins',
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'

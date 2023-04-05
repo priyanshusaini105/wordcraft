@@ -35,9 +35,19 @@
 }
 
 
-  figure,iframe{
+  .post figure,iframe,pre,blockquote{
     @apply overflow-x-auto w-full my-16;
   }
-  p{
-    @apply my-8;
+  
+ .post pre{
+    @apply bg-slate-900 text-white rounded p-1
+  }
+  .post code{
+    @apply bg-accent rounded-md p-[2px] px-[10px] mx-2 whitespace-normal overflow-hidden;
+  }
+  .post p{
+    @apply my-8 font-serif;
+  }
+  .post li{
+    @apply whitespace-normal overflow-auto;
   }
