@@ -12,7 +12,7 @@ import { auth } from '@/config/firebase';
 import { useRouter } from 'next/router';
 import { FirebaseError } from 'firebase/app';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+ 
 
 const PASS_REGEX = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 

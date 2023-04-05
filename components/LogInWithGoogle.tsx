@@ -1,12 +1,12 @@
 import { auth, database } from '@/config/firebase';
 import { FirebaseError } from 'firebase/app';
-import { GoogleAuthProvider, getRedirectResult, signInWithPopup, signInWithRedirect } from 'firebase/auth';
+import { GoogleAuthProvider, getRedirectResult,  signInWithRedirect } from 'firebase/auth';
 import { ref, set } from 'firebase/database';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
+ 
 
 
 

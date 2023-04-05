@@ -5,7 +5,7 @@ import type { AppProps } from 'next/app'
 import { Nunito, Poppins, Source_Serif_Pro } from 'next/font/google'
 import Head from 'next/head'
 import { Flip, ToastContainer } from 'react-toastify';
-
+import 'react-toastify/dist/ReactToastify.min.css';
 
 const nunito = Nunito({
   variable: '--font-nunito',
