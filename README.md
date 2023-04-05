@@ -33,6 +33,7 @@ To get started with WordCraft, follow these simple steps:
 1. Clone the repository
 2. Install the dependencies using `npm install`
 3. Set up the Firebase project and add the credentials in the `.env.local` file
+```
 NEXT_PUBLIC_API_KEY= [YOUR_API_KEY_FROM_FIREBASE]
 NEXT_PUBLIC_AUTH_DOMAIN= [YOUR_AUTH_DOMAIN_FROM_FIREBASE]
 NEXT_PUBLIC_PROJECT_ID= [YOUR_PROJECT_ID_FROM_FIREBASE]
@@ -42,6 +43,7 @@ NEXT_PUBLIC_MESSAGING_SENDER_ID= [YOUR_MESSAGING_SENDER_ID_FROM_FIREBASE]
 NEXT_PUBLIC_APP_ID= [YOUR_APP_ID_FROM_FIREBASE]
 NEXT_PUBLIC_MEASUREMENT_ID= [YOUR_MEASUREMENT_ID_FROM_FIREBASE]
 NEXT_PUBLIC_TINYMCE_API_KEY= [YOUR_TINYMCE_API_KEY]
+```
 4. Run the development server using `npm run dev`
 5. Open `http://localhost:3000` in your browser to view the website
 

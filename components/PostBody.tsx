@@ -53,7 +53,7 @@ export default function PostBody({ post,  comments,isDraft }: { post: IPost, com
                 <div className='flex justify-center my-4'>
                     <Image src={post.image} width={650} height={500} alt="Unable to load Image" className='m-6' />
                 </div>
-                <div className='font-sourceSerifPro' dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div className=' font-serif' dangerouslySetInnerHTML={{ __html: post.content }} />
                 <section>
                     <CommentSection postId={postId} comments={comments} />
                 </section>

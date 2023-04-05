@@ -49,7 +49,7 @@ export default function Home({ posts }: { posts: IPostsData }) {
                         <span className="bg-primary/20 text-xs rounded-md p-1 text-gray-500">{tags[0]}</span>
                         <h2 className="font-semibold font-nunito my-2">{title}</h2>
                         <hr />
-                        <p className="text-sm m-2 font-sourceSerifPro">{getExcerpt(content)}</p>
+                        <p className="text-sm m-2  font-serif">{getExcerpt(content)}</p>
                       </Link>
                     </li>
                   )

@@ -21,7 +21,7 @@ module.exports = {
       fontFamily: {
         nunito: ["var(--font-nunito)"],
         poppins: ["var(--font-poppins)"],
-        sourceSerifPro: ["var(--font-sourceSerifPro) serif"],
+        serif: ["var(--font-sourceSerifPro) serif"],
       },
     },
   },
