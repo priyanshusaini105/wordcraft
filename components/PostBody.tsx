@@ -22,7 +22,7 @@ export default function PostBody({ post,  comments,isDraft }: { post: IPost, com
             <Head>
                 <title>{post.title ?? "Not Found"}</title>
             </Head>
-            <section className='md:w-8/12 border-r px-16 min-w-content'>
+            <section className='md:w-8/12 border-r px-16 min-w-min'>
                 {/* title */}
                 {/* <hr /> */}
                 <h1 className="text-4xl md:text-6xl font-semibold font-nunito m-2 text-black mb-8">{post.title}</h1>
@@ -53,7 +53,7 @@ export default function PostBody({ post,  comments,isDraft }: { post: IPost, com
                 <div className='flex justify-center my-4'>
                     <Image src={post.image} width={650} height={500} alt="Unable to load Image" className='m-6' />
                 </div>
-                <div className=' font-serif' dangerouslySetInnerHTML={{ __html: post.content }} />
+                <div className='  font-serif leading-7' dangerouslySetInnerHTML={{ __html: post.content }} />
                 <section>
                     <CommentSection postId={postId} comments={comments} />
                 </section>
