@@ -26,9 +26,10 @@ export default function Dropdown({ isDraft, post }: { isDraft: boolean, post: IP
         const postRef = ref(database, isDraft ? `/drafts/${postId}` : `/publish/${postId}`);
         remove(postRef)
             .then(() => {
-                toast('Post Deleted Successfully', { type: 'success', transition: Zoom, position: "top-center", });
-                if(!isEdit)
+                if(!isEdit){
                     router.push('/' + post.userId)
+                    toast('Post Deleted Successfully', { type: 'success', transition: Zoom, position: "top-center", });
+                }
             })
             .catch((error) => {
                 console.error("Error deleting node:", error);

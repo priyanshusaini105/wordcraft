@@ -58,7 +58,7 @@ const Edit: React.FC<IEditPostProps> = ({ post, exist, postId }) => {
 
     const draft = () => {
         if (editorRef.current) {
-            set(ref(database, `/draft/${post.id}`), {
+            set(ref(database, `/drafts/${post.id}`), {
                 ...post,
                 content: editorRef.current.getContent()
             }).then(() => {

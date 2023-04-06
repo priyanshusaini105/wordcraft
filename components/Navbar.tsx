@@ -2,23 +2,22 @@ import Link from 'next/link'
 import React, { useContext } from 'react'
 import Image from 'next/image';
 import { TfiBook, TfiPencilAlt } from "react-icons/tfi";
-import { IconType } from 'react-icons/lib';
 import { ProfileContext } from '@/context';
 import {Search} from '@/components'
 
 
 const Navbar = () => {
     
-    const { login, photo, email, name, userId } = useContext(ProfileContext);
+    const { login, photo,  name, userId } = useContext(ProfileContext);
 
     return (
         <nav className='h-14 lg:px-10 px-1 bg-accent fixed top-0 left-0 right-0 z-50 flex justify-between items-center gap-2 bg-opacity-20 backdrop-blur shadow-md'>
             <Link href="/">
                 <Image src="/img/logo-lg.png" alt="logo" width="200" height="35" />
             </Link>
+            
             {/* search */}
             <Search/>
-
 
             <ul className='list-none m-0 p-0 flex items-center'>
                 <li className="mx-2 lg:mx-4 relative">
