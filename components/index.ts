@@ -9,4 +9,5 @@ import DraftPostsListsBody from './DraftPostsListsBody';
 import PostBody from './PostBody';
 import Spinner from './Spinner';
 import RenderPosts from './RenderPosts';
-export {Navbar,Hero,Footer,LogInWithGoogle,CreateBlogPostForm,Sidebar,CommentSection,DraftPostsListsBody,PostBody,Spinner,RenderPosts}
+import Search from './Search';
+export {Navbar,Hero,Footer,LogInWithGoogle,CreateBlogPostForm,Sidebar,CommentSection,DraftPostsListsBody,PostBody,Spinner,RenderPosts,Search}

@@ -4,29 +4,11 @@ import Image from 'next/image';
 import { TfiBook, TfiPencilAlt } from "react-icons/tfi";
 import { IconType } from 'react-icons/lib';
 import { ProfileContext } from '@/context';
+import {Search} from '@/components'
 
-interface INavItems {
-    name: string;
-    link: string;
-    icon: IconType;
-    id: string;
-}
-
-const navItems: INavItems[] = [{
-    name: 'Write',
-    link: '/write',
-    icon: TfiPencilAlt,
-    id: '1'
-},
-{
-    name: 'Read',
-    link: '/#read',
-    icon: TfiBook,
-    id: '2'
-},
-]
 
 const Navbar = () => {
+    
     const { login, photo, email, name, userId } = useContext(ProfileContext);
 
     return (
@@ -34,23 +16,27 @@ const Navbar = () => {
             <Link href="/">
                 <Image src="/img/logo-lg.png" alt="logo" width="200" height="35" />
             </Link>
+            {/* search */}
+            <Search/>
+
+
             <ul className='list-none m-0 p-0 flex items-center'>
-                    <li className="mx-2 lg:mx-4 relative">
-                        <Link href='/write' className='text-gray-700 font-bold text-sm uppercase no-underline relative transition-colors duration-300 hover:text-primary flex gap-1 items-center'>
-                            <TfiPencilAlt size={22} />
-                            Write
-                        </Link>
-                    </li>
-                    <li className="mx-2 lg:mx-4 relative hidden md:block">
-                        <Link href='/#read' className='text-gray-700 font-bold text-sm uppercase no-underline relative transition-colors duration-300 hover:text-primary flex gap-1 items-center'>
-                            <TfiBook size={22} />
-                            Read
-                        </Link>
-                    </li>
+                <li className="mx-2 lg:mx-4 relative">
+                    <Link href='/write' className='text-gray-700 font-bold text-sm uppercase no-underline relative transition-colors duration-300 hover:text-primary flex gap-1 items-center'>
+                        <TfiPencilAlt size={22} />
+                        Write
+                    </Link>
+                </li>
+                <li className="mx-2 lg:mx-4 relative hidden md:block">
+                    <Link href='/#read' className='text-gray-700 font-bold text-sm uppercase no-underline relative transition-colors duration-300 hover:text-primary flex gap-1 items-center'>
+                        <TfiBook size={22} />
+                        Read
+                    </Link>
+                </li>
                 {login ?
                     <li className='m-3 relative'>
                         <Link href={`/${userId}`} className='' title={name ?? "Profile"}>
-                            {photo!=="" ?
+                            {photo !== "" ?
                                 <Image
                                     src={photo}
                                     alt="Unable to load Image"

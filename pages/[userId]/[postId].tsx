@@ -9,28 +9,7 @@ import { Comment, ICommentsData, IPost, IPostQuery } from '@/types'
 import { GetServerSideProps } from 'next'
 import { CommentSection, PostBody, Sidebar } from '@/components'
 
-let blogPostTags = [
-    "JavaScript",
-    "Web Development",
-    "HTML",
-    "CSS",
-    "Front-end Development",
-    "Back-end Development",
-    "Node.js",
-    "React",
-    "Angular",
-    "Vue.js",
-    "Database",
-    "API",
-    "Mobile Development",
-    "User Experience",
-    "User Interface",
-    "Design",
-    "Agile Methodology",
-    "Product Management",
-    "Artificial Intelligence",
-    "Machine Learning"
-];
+
 
 
 interface IPostProps{
