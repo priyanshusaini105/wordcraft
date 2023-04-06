@@ -34,7 +34,7 @@ const Navbar = () => {
                     </Link>
                 </li>
                 {login ?
-                    <li className='m-3 relative'>
+                    <li className='m-3 relative' title={name}>
                         <Link href={`/${userId}`} className='' title={name ?? "Profile"}>
                             {photo !== "" ?
                                 <Image

@@ -1,6 +1,6 @@
 import { auth, database } from '@/config/firebase';
 import { FirebaseError } from 'firebase/app';
-import { GoogleAuthProvider, getRedirectResult,  signInWithRedirect } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { ref, set } from 'firebase/database';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -28,19 +28,22 @@ const LogInWithGoogle = () => {
     // for google sign in
     const signInWithGoogle = async () => {
         try {
-            await signInWithRedirect(auth, provider);
-            const result = await getRedirectResult(auth);
+            const result = await signInWithPopup(auth, provider);
             if (!result) {
                 toast.warning('No user found');
                 return;
             }
             const user = result.user;
+            console.log(user)
 
             await set(ref(database, `users/${user.uid}/profile`), {
                 name: user.displayName,
                 email: user.email,
                 photo: user.photoURL,
+                role: "author",
+                userId:user.uid
             });
+            toast.success('Login Succussfully')
             router.push('/');
         } catch (error) {
             if (isFirebaseError(error)) {
@@ -50,7 +53,10 @@ const LogInWithGoogle = () => {
                 console.error(`Error while creating account ${errorMessage}`);
             }
             else
+            {
                 console.error(error)
+                router.push('/');
+                }
         }
     }
 

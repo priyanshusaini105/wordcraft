@@ -54,6 +54,10 @@ const ProfileProvider = ({ children }: ProfileProviderProps) => {
             setStatus('success');
           } else {
             console.log('No data available');
+            setProfileData({
+              ...profileData,
+              login:true
+            });
             setStatus('error');
           }
         } catch (error) {
@@ -88,7 +92,7 @@ const ProfileProvider = ({ children }: ProfileProviderProps) => {
       }
       else if (profileData.login && isLoginRestrictedPage) {
         toast.info('You are already logged in');
-        router.back();
+        router.push('/');
       }
     }, 1000);
     return () => clearTimeout(timeOut);
