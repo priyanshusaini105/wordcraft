@@ -16,7 +16,7 @@ const Footer = () => {
                     </Link>
                     <span className="ml-3 text-xl font-nunito">WordCraft</span>
                 <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">© 2023 WordCraft —
-                    <a href="https://www.linkedin.com/in/priyanshusaini105/" className="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">@priyanshusaini</a>
+                    <a href="https://www.linkedin.com/in/" className="text-gray-600 ml-1" rel="noopener noreferrer" target="_blank">@wordcraft</a>
                 </p>
                 <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
                     <a className="text-gray-500" target='_blank' href={`https://www.facebook.com/sharer/sharer.php?u=${currUrl}`}>
